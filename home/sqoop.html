@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/layui/2.5.6/css/layui.min.css"
+    />
+    <script src="../assets/lib/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="layui-container" style="height: 150px; padding-top: 80px">
+      <button class="layui-btn" onclick="sqoopHdfsToMysql(0)">
+        将各个时期游客数量数据从hdfs导入mysql
+      </button>
+      <button class="layui-btn" onclick="sqoopHdfsToMysql(1)">
+        将分析各个时期的rating的平均值数据从hdfs导入mysql
+      </button>
+    </div>
+    <div class="layui-container" style="height: 150px; padding-top: 80px">
+        <button class="layui-btn" onclick="sqoopHdfsToMysql(2)">
+          将游客都来自哪个地区数据从hdfs导入mysql
+        </button>
+        <button class="layui-btn" onclick="sqoopHdfsToMysql(3)">
+          将获取评分最高的三个公园数据从hdfs导入mysql
+        </button>
+      </div>
+  </body>
+  <script>
+    function sqoopHdfsToMysql(e) {
+      console.log(e);
+      $.ajax({
+        type: "post",
+        url: "http://192.168.178.34:8080/shell",
+        data: { 
+            n: e 
+        },
+        success: function (msg) {
+          alert("sqoop从hdfs导入mysql成功");
+        },
+      });
+    }
+  </script>
+</html>

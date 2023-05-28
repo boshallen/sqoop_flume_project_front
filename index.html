@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sqoop项目首页</title>
+    <link rel="stylesheet" href="/assets/lib/layui/css/layui.css" />
+    <link rel="stylesheet" href="/assets/fonts/iconfont.css" />
+    <link rel="stylesheet" href="/assets/css/index.css" />
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin">
+        <!-- 头部区域 -->
+        <div class="layui-header">
+            <div class="layui-logo layui-hide-xs layui-bg-black">
+                <!-- <img src="/assets/images/logo.jpg" alt="" /> -->
+            </div>
+
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                    <a href="javascript:;" class="userinfo">
+                        <img src="/assets/images/600.png" class="layui-nav-img" />
+                        <!-- <span class="text-avatar">1</span> -->
+                        个人中心
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/user/user_info.html" target="fm">基本资料</a></dd>
+                        <dd><a href="/user/user_avatar.html" target="fm">更换头像</a></dd>
+                        <dd><a href="/user/user_pwd.html" target="fm">重置密码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
+                    <a href="javascript:;" id="btnLogout"><span class="iconfont icon-tuichu"></span>退出</a>
+                </li>
+            </ul>
+        </div>
+        <!-- 侧边栏区域 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <div class="userinfo">
+                    <img src="/assets/images/600.png" class="layui-nav-img" />
+                    <!-- <span class="text-avatar">A</span> -->
+                    <span id="welcome">欢迎 admin</span>
+                </div>
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all">
+                    <li class="layui-nav-item layui-this">
+                        <a href="/home/createtable.html" target="fm">
+                            <span class="iconfont icon-bussiness"></span>上传文件</a>
+                    </li>
+                    <!-- <li class="layui-nav-item">
+                        <a href="/home/hive.html" target="fm">
+                            <span class="iconfont icon-audit"></span>数据展示</a>
+                    </li> -->
+                    <li class="layui-nav-item">
+                        <a href="/home/flume.html" target="fm">
+                            <span class="iconfont icont-about"></span>收集文件</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="/home/anaylse.html" target="fm">
+                            <span class="iconfont icon-home"></span>数据分析</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="/home/sqoop.html" target="fm">
+                            <span class="iconfont icon-bussiness"></span>数据导入</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="/home/dashboard.html" target="fm">
+                            <span class="iconfont icon-audit"></span>可视化展示</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="/home/sqoop_flume项目流程图.html" target="fm">
+                            <span class="iconfont icon-check-fill"></span>流程介绍</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="/description/about.html" target="fm">
+                            <span class="iconfont icont-about"></span>关于我们</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;"><span class="iconfont icon-user"></span>个人中心</a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="/user/user_info.html" target="fm"><i
+                                        class="layui-icon layui-icon-align-left"></i>基本资料</a>
+                            </dd>
+                            <!-- <dd>
+                                <a href="/user/user_avatar.html" target="fm"><i
+                                        class="layui-icon layui-icon-username"></i>更换头像</a>
+                            </dd> -->
+                            <dd>
+                                <a href="/user/user_pwd.html" target="fm"><i
+                                        class="layui-icon layui-icon-list"></i>重置密码</a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 主题区域 -->
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <iframe name="fm" src="/home/test.html" frameborder="0"></iframe>
+        </div>
+        <!-- 底部区域 -->
+        <!-- <div class="layui-footer">
+            底部固定区域
+        </div> -->
+    </div>
+    <script src="/assets/lib/layui/layui.all.js"></script>
+    <script src="/assets/lib/jquery.js"></script>
+    <script src="/assets/js/baseAPI.js"></script>
+    <script src="/assets/js/index.js"></script>
+</body>
+
+</html>

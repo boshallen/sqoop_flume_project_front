@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>表单网页</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/layui/2.5.6/css/layui.min.css"
+    />
+    <script src="../assets/lib/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="layui-container" style="height: 150px; padding-top: 80px">
+      <div id="fileUrl"></div>
+      <input type="file" id="file" />
+      <input type="button" value="提交" onclick="uploadFile()" />
+      <button id="delete" onclick="deleteFile()">delete</button>
+    </div>
+    <div class="layui-container">
+      <div class="layui-row">
+        <div class="layui-col-md8">
+          <table class="layui-table" id="myTable">
+            <colgroup>
+              <col width="200" />
+              <col width="200" />
+              <col width="200" />
+              <col width="100" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>列名</th>
+                <th>列标识</th>
+                <th>列属性</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input type="text" name="column_name[]" class="layui-input" />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="column_identifier[]"
+                    class="layui-input"
+                  />
+                </td>
+                <td>
+                  <select name="column_type[]" class="layui-select">
+                    <option value="string">字符型</option>
+                    <option value="int">整型</option>
+                    <option value="float">浮点型</option>
+                    <option value="date">"date型</option>
+                  </select>
+                </td>
+                <td>
+                  <button
+                    class="layui-btn layui-btn-danger layui-btn-sm"
+                    onclick="deleteRow(this)"
+                  >
+                    删除
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="layui-row">
+        <div class="layui-col-md8">
+          <button class="layui-btn layui-btn-primary" onclick="addRow()">
+            添加行
+          </button>
+          <button class="layui-btn" onclick="submitForm()">创建hive表</button>
+        </div>
+      </div>
+      <div class="layui-container" style="height: 120px; padding-top: 80px">
+        <button class="layui-btn" onclick="hdfsToHive()">
+          hdfs数据导入hive表
+        </button>
+      </div>
+    </div>
+
+    <script src="https://cdn.staticfile.org/layui/2.5.6/layui.min.js"></script>
+    <script type='text/javascript' src='../assets/js/login.js'></script> 
+    <script>
+      function uploadFile() {
+        file = $("#file")[0].files[0];
+        time = Date.now()
+        username = localStorage.getItem('username');
+        password = localStorage.getItem('password');
+        console.log(time);
+        var formData = new FormData();
+        formData.append("file", file);
+        formData.append("username", username);
+        formData.append("time", time);
+        // console.log(formData);
+        $.ajax({
+          type: "post",
+          url: "http://192.168.178.34:8080/upload",
+          processData: false,
+          contentType: false,
+          data: formData,
+          success: function (msg) {
+            $("#fileUrl").html(msg);
+          },
+        });
+      }
+      function deleteFile() {
+        var formData = new FormData();
+        formData.append("file", file);
+        formData.append("username", username);
+        formData.append("time", time);
+        // console.log(formData);
+        $.ajax({
+          type: "post",
+          url: "http://192.168.178.34:8080/delete",
+          processData: false,
+          contentType: false,
+          data: formData,
+          success: function (msg) {
+            layer.msg("删除文件成功");
+          },
+        });
+      }
+
+      layui.use(["form"], function () {
+        var form = layui.form;
+        form.render();
+      });
+
+      // 用于添加新行的函数
+      function addRow() {
+        var table = document.getElementById("myTable");
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        cell1.innerHTML =
+          '<input type="text" name="column_name[]" class="layui-input">';
+        cell2.innerHTML =
+          '<input type="text" name="column_identifier[]" class="layui-input">';
+        cell3.innerHTML =
+          '<select name="column_type[]" class="layui-select">' +
+          '<option value="string">字符型</option>' +
+          '<option value="int">整型</option>' +
+          '<option value="float">浮点型</option>' +
+          '<option value="date">date型</option>' +
+          "</select>";
+        cell4.innerHTML =
+          '<button class="layui-btn layui-btn-danger layui-btn-sm" onclick="deleteRow(this)">删除</button>';
+
+        layui.use(["form"], function () {
+          var form = layui.form;
+          form.render();
+        });
+      }
+
+      // 用于删除行的函数
+      function deleteRow(row) {
+        var table = document.getElementById("myTable");
+        var rowIndex = row.parentNode.parentNode.rowIndex;
+        table.deleteRow(rowIndex);
+      }
+
+      //获得用户token
+      function getToken() {
+        var token;
+        $.ajax({
+          type: "post",
+          url: "http://192.168.178.34:8080/gettoken",
+          async: false, //把ajax异步请求改为同步请求->async: false；既然是封装方法，有返回值才会赋值给变量
+          data: {
+            username: username,
+            password: password,
+          },
+          success: function (msg) {
+            token = msg;
+            console.log("token:",token);  
+          },
+        });
+        return token;
+      }
+     
+      // 用于提交表单的函数
+      function submitForm() {
+        var table = document.getElementById("myTable");
+        var rowCount = table.rows.length;
+        tablename = username + "" + time;
+        localStorage.setItem('tablename',tablename);
+        console.log("localStorage",localStorage.getItem('tablename'));
+        console.log("tbname1:",tablename);
+        var sql = "CREATE TABLE " + "" + tablename + "" + " (";
+        for (var i = 1; i < rowCount; i++) {
+          var column_name =
+            table.rows[i].cells[0].getElementsByTagName("input")[0].value;
+          var column_identifier =
+            table.rows[i].cells[1].getElementsByTagName("input")[0].value;
+          var column_type =
+            table.rows[i].cells[2].getElementsByTagName("select")[0].value;
+          sql += column_identifier + " " + column_type + ",";
+        }
+        sql = sql.slice(0, -1); // 去除最后一个逗号
+        
+        sql += ")";
+        sql += "row format serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'\n";
+        sql += "with serdeproperties ('separatorChar' = ',' ,\n"
+        sql += "'quoteChar' = '\\\"' ,\n";
+        sql += "'escapeChar' = '\\\\')\n";
+        sql += "stored as textfile tblproperties(\"skip.header.line.count\"=\"1\")";
+        // alert("生成的SQL语句为:\n" + sql);
+        console.log(sql);
+        // 在此处发送HTTP POST请求将sql作为请求体发送到127.0.0.1:8080
+        $.ajax({
+          type: "post",
+          url: "http://192.168.178.34:8080/execute",
+          data: {
+            sql: sql,
+          },
+          success: function (msg) {
+            layer.msg("hive表创建成功");
+          },
+        });
+      }
+
+      function hdfsToHive() {
+        // var tbame = tablename;
+        // console.log("tbname2:",tablename);
+        var filename = file["name"];
+        console.log("filename:",filename);
+        $.ajax({
+          type: "post",
+          url: "http://192.168.178.34:8080/insert",
+          data: {
+            tablename: tablename,
+            filename: filename,
+            username: username,
+            time: time
+          },
+          success: function (msg) {
+            layer.msg("数据导入成功");
+          },
+        });
+        console.log("filename:",filename);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "34452783",
+      "name": "business-icon-sales-center-fill",
+      "font_class": "business-icon-sales-center-fill",
+      "unicode": "e824",
+      "unicode_decimal": 59428
+    },
+    {
+      "icon_id": "34452790",
+      "name": "catalog-check",
+      "font_class": "catalog-check",
+      "unicode": "e826",
+      "unicode_decimal": 59430
+    },
+    {
+      "icon_id": "34452791",
+      "name": "catalog-check-fill",
+      "font_class": "catalog-check-fill",
+      "unicode": "e827",
+      "unicode_decimal": 59431
+    },
+    {
+      "icon_id": "34452806",
+      "name": "customer-businessman-fill",
+      "font_class": "customer-businessman-fill",
+      "unicode": "e828",
+      "unicode_decimal": 59432
+    },
+    {
+      "icon_id": "34452808",
+      "name": "customer-bussinessman",
+      "font_class": "customer-bussinessman",
+      "unicode": "e829",
+      "unicode_decimal": 59433
+    },
+    {
+      "icon_id": "34452809",
+      "name": "customer-add-fill",
+      "font_class": "customer-add-fill",
+      "unicode": "e82a",
+      "unicode_decimal": 59434
+    },
+    {
+      "icon_id": "34452924",
+      "name": "order-success",
+      "font_class": "order-success",
+      "unicode": "e833",
+      "unicode_decimal": 59443
+    },
+    {
+      "icon_id": "34452926",
+      "name": "order-inspection",
+      "font_class": "order-inspection",
+      "unicode": "e834",
+      "unicode_decimal": 59444
+    },
+    {
+      "icon_id": "34452929",
+      "name": "order-success-fill",
+      "font_class": "order-success-fill",
+      "unicode": "e835",
+      "unicode_decimal": 59445
+    },
+    {
+      "icon_id": "34452930",
+      "name": "order-rejected-fill",
+      "font_class": "order-rejected-fill",
+      "unicode": "e836",
+      "unicode_decimal": 59446
+    },
+    {
+      "icon_id": "34453164",
+      "name": "application-record",
+      "font_class": "application-record",
+      "unicode": "e84a",
+      "unicode_decimal": 59466
+    },
+    {
+      "icon_id": "34453198",
+      "name": "discount-fill",
+      "font_class": "discount-fill",
+      "unicode": "e853",
+      "unicode_decimal": 59475
+    }
+  ]
+}

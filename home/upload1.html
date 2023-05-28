@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>文件上传</title>
+    <link rel="stylesheet" href="/assets/lib/layui/css/layui.css" media="all" />
+  </head>
+  <body>
+    <div class="layui-upload-drag" id="test10">
+      <i class="layui-icon"></i>
+      <p>点击上传，或将文件拖拽到此处</p>
+      <!-- <div class="layui-hide" id="uploadDemoView">
+          <hr>
+          <img src="" alt="上传成功后渲染" style="max-width: 196px">
+        </div> -->
+    </div>
+    <script src="/assets/lib/layui/layui.js"></script>
+    <script>
+      layui.use('upload', function(){
+        var upload = layui.upload;
+        //执行实例
+        var uploadInst = upload.render({
+          elem: '#test10'
+          ,url: 'http://192.168.178.34:8080/upload'
+          // ,auto: false //选择文件后不自动上传
+          ,accept: 'file' //允许上传的文件类型
+          ,done: function(res){
+            layer.closeAll('loading'); //关闭loading
+            layer.msg('上传成功');
+          //   layui.$('#uploadDemoView').removeClass('layui-hide').find('file').attr('src', res.files.file);
+            console.log(res)
+          }
+          //文件上传进度的回调
+          ,progress: function(n, elem, res, index){
+          var percent = n + '%' //获取进度百分比
+          element.progress('demo', percent); //可配合 layui 进度条元素使用
+          console.log(elem); //得到当前触发的元素 DOM 对象。可通过该元素定义的属性值匹配到对应的进度条。
+          console.log(res); //得到 progress 响应信息
+          console.log(index); //得到当前上传文件的索引，多文件上传时的进度条控制，如：
+          element.progress('demo-'+ index, n + '%'); //进度条
+        }
+        ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+          layer.load(); //上传loading
+          layer.msg('上传成功',{icon:1,time:4000});
+          layer.closeAll('loading'); //关闭loading
+        }
+        });
+      });
+    </script>
+  </body>
+</html>

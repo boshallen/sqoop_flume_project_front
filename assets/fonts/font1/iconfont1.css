@@ -1,0 +1,61 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1679756336125') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-business-icon-sales-center-fill:before {
+  content: "\e824";
+}
+
+.icon-catalog-check:before {
+  content: "\e826";
+}
+
+.icon-catalog-check-fill:before {
+  content: "\e827";
+}
+
+.icon-customer-businessman-fill:before {
+  content: "\e828";
+}
+
+.icon-customer-bussinessman:before {
+  content: "\e829";
+}
+
+.icon-customer-add-fill:before {
+  content: "\e82a";
+}
+
+.icon-order-success:before {
+  content: "\e833";
+}
+
+.icon-order-inspection:before {
+  content: "\e834";
+}
+
+.icon-order-success-fill:before {
+  content: "\e835";
+}
+
+.icon-order-rejected-fill:before {
+  content: "\e836";
+}
+
+.icon-application-record:before {
+  content: "\e84a";
+}
+
+.icon-discount-fill:before {
+  content: "\e853";
+}
+

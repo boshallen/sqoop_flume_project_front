@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/lib/layui/css/layui.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <table class="layui-hide" id="ID-table-demo-data"></table>
+    <script src="/assets/lib/layui/layui.all.js"></script>
+  </body>
+  <script src="/assets/js/axios.js"></script>
+  <script>
+      const axios = require('axios');
+      var tablename = localStorage.getItem("tablename");
+      console.log(tablename);
+      var sql = "select * from " + tablename;
+      axios({
+        // 请求地址
+        url: "http://192.168.178.34:8080/execute",
+        // 请求类型
+        method: "post",
+        // 参数
+        data: {
+          sql: sql,
+        },
+        // 接收数据类型
+        responseType: "json",
+      })
+        .then((response) => {
+          resdata = response.data;
+          console.log(resdata["records"]);
+          layui.use("table", function () {
+            var table = layui.table;
+            // 已知数据渲染
+            var inst = table.render({
+              elem: "#ID-table-demo-data",
+              cols: [
+                [
+                  //标题栏
+                  {
+                    field: resdata["fields"][0]["name"],
+                    title: "评论id",
+                    width: 120,
+                    sort: true,
+                  },
+                  {
+                    field: resdata["fields"][1]["name"],
+                    title: "评分",
+                    width: 80,
+                  },
+                  {
+                    field: resdata["fields"][2]["name"],
+                    title: "日期",
+                    width: 120,
+                  },
+                  {
+                    field: resdata["fields"][3]["name"],
+                    title: "游客国籍",
+                    width: 200,
+                  },
+                  {
+                    field: resdata["fields"][4]["name"],
+                    title: "评论内容",
+                    width: 550,
+                  },
+                  {
+                    field: resdata["fields"][5]["name"],
+                    title: "公园位置",
+                    width: 200,
+                  },
+                ],
+              ],
+              data: resdata["records"],
+              //,skin: 'line' // 表格风格
+              //,even: true
+              page: true, // 是否显示分页
+              limits: [15, 20, 25],
+              limit: 15, // 每页默认显示的数量
+            });
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  </script>
+</html>

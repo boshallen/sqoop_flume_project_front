@@ -1,0 +1,5 @@
+# 进入python虚拟环境
+conda activate superset
+# 启动superset（二选一）
+superset run -p 8288 -h hadoop100 --with-threads  --reload --debugger
+gunicorn --workers 5 --timeout 120 --bind hadoop100:8288  "superset.app:create_app()" --daemon

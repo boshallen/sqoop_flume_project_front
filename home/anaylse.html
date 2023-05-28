@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/layui/2.5.6/css/layui.min.css"
+    />
+    <script src="../assets/lib/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="layui-container" style="height: 150px; padding-top: 80px">
+      <!-- <div>请输入上传到hdfs的文件路径</div>
+      <input type="text" id="path" /> -->
+      <button class="layui-btn" onclick="anaylseHive1()">
+        使用hive分析数据1
+      </button>
+      <button class="layui-btn" onclick="anaylseHive2()">
+        使用hive分析数据2
+      </button>
+      <button class="layui-btn" onclick="anaylseHive3()">
+        使用hive分析数据3
+      </button>
+      <button class="layui-btn" onclick="anaylseHive4()">
+        使用hive分析数据4
+      </button>
+    </div>
+  </body>
+  <script src="https://cdn.staticfile.org/layui/2.5.6/layui.min.js"></script>
+  <script>
+    // var path = document.querySelector('#path').value;
+    // console.log(path);
+    var username = localStorage.getItem("username");
+    var tablename = localStorage.getItem("tablename");
+    var sql1 =
+      "INSERT OVERWRITE DIRECTORY '/project/anaylse/" +
+      username +
+      "/anaylse1' row format delimited fields terminated by '\t' STORED AS textfile SELECT `Year_Month`, COUNT(*) AS tourists_count FROM " +
+      tablename +
+      " GROUP BY `Year_Month`";
+    console.log(sql1);
+    var sql2 =
+      "INSERT OVERWRITE DIRECTORY '/project/anaylse/" +
+      username +
+      "/anaylse2' row format delimited fields terminated by '\t' STORED AS textfile SELECT Year_Month, AVG(CAST(rating AS FLOAT)) AS avg_rating FROM " +
+      tablename +
+      " GROUP BY `Year_Month`";
+    var sql3 =
+      "INSERT OVERWRITE DIRECTORY '/project/anaylse/" +
+      username +
+      "/anaylse3' row format delimited fields terminated by '\t' STORED AS textfile SELECT Reviewer_Location, COUNT(*) AS reviewer_count FROM " +
+      tablename +
+      " GROUP BY Reviewer_Location";
+    var sql4 =
+      "INSERT OVERWRITE DIRECTORY '/project/anaylse/" +
+      username +
+      "/anaylse4' row format delimited fields terminated by '\t' STORED AS textfile SELECT Branch, AVG(CAST(rating AS FLOAT)) AS avg_rating FROM " +
+      tablename +
+      " GROUP BY Branch ORDER BY avg_rating DESC LIMIT 3";
+    function anaylseHive1() {
+      $.ajax({
+        type: "post",
+        url: "http://192.168.178.34:8080/execute",
+        data: { sql: sql1 },
+        success: function (msg) {
+          alert("hive查询1导入hdfs成功");
+        },
+      });
+    }
+    function anaylseHive2() {
+      $.ajax({
+        type: "post",
+        url: "http://192.168.178.34:8080/execute",
+        data: { sql: sql2 },
+        success: function (msg) {
+          alert("hive查询2导入hdfs成功");
+        },
+      });
+    }
+    function anaylseHive3() {
+      $.ajax({
+        type: "post",
+        url: "http://192.168.178.34:8080/execute",
+        data: { sql: sql3 },
+        success: function (msg) {
+          alert("hive查询3导入hdfs成功");
+        },
+      });
+    }
+    function anaylseHive4() {
+      $.ajax({
+        type: "post",
+        url: "http://192.168.178.34:8080/execute",
+        data: { sql: sql4 },
+        success: function (msg) {
+          alert("hive查询4导入hdfs成功");
+        },
+      });
+    }
+  </script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/layui/2.5.6/css/layui.min.css"
+    />
+    <script src="../assets/lib/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="layui-container" style="height: 120px; padding-top: 80px">
+      <button class="layui-btn" onclick="flumeToHdfs()">
+        Flume收集上传的文件到hdfs
+      </button>
+    </div>
+  </body>
+  <script src="https://cdn.staticfile.org/layui/2.5.6/layui.min.js"></script>
+  <script>
+    function flumeToHdfs() {
+      $.ajax({
+        type: "post",
+        url: "http://192.168.178.34:8080/shell",
+        data: {
+          n: 4,
+        },
+        success: function (msg) {
+          alert("flume收集文件到hdfs成功");
+        },
+      });
+    }
+  </script>
+</html>
